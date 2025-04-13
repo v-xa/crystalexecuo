@@ -1,23 +1,10 @@
-local http_functions = {
-    http_request,
-    request,
-    syn and syn.request,
-    http and http.request
-}
+local response = http_request({
+    Url = "https://httpbin.org/headers",
+    Method = "GET",
+    Headers = {
+        ["User-Agent"] = "crystalapi"
+    }
+})
 
-for _, func in ipairs(http_functions) do
-    if type(func) == "function" then
-        local response = func({
-            Url = "https://httpbin.org/headers", 
-            Method = "GET",
-            Headers = {
-                ["User-Agent"] = "crystalapi"
-            }
-        })
-
-        print("✅ Sent with function:", tostring(func))
-        print("📨 Response:")
-        print(response.Body)
-        break
-    end
-end
+print(response.Body)
+print("[crystal] request done")
